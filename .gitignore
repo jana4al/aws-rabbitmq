@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/aws-rabbitmq/FileContentIndex
+/ApiProducer/obj
+/.vs/aws-rabbitmq/DesignTimeBuild
+/ConsoleProducer/obj
+/ConsumerService/obj
