@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiProducer.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProducer.Controllers
 {
@@ -6,10 +7,19 @@ namespace ApiProducer.Controllers
     [Route("[controller]")]
     public class EventProducerController : ControllerBase
     {
+        private readonly IPublishMessage _publishMessage;
+
+        public EventProducerController(IPublishMessage publishMessage)
+        {
+            _publishMessage = publishMessage;
+        }
+
         [HttpPost("produce")]
         public ActionResult Publish()
         {
-            return Ok();
+            var response = _publishMessage.Publish("This is my first message from API.");
+
+            return Ok(response);
         }
     }
 }

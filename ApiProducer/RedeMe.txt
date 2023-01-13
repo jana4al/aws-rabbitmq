@@ -1,0 +1,4 @@
+﻿Docker enabled to this application. Use below commands or instructions to run application.
+
+1. Make sure you are running docker server which will be run automatically if you start the docker desktop.
+2. 

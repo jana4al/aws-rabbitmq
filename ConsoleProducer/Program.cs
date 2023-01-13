@@ -3,19 +3,9 @@ using RabbitMQ.Client;
 
 Console.WriteLine("Hello RabbitMQ... Let's play with you... :)");
 
-var hostname = "b-*******.amazonaws.com";
-var factory = new ConnectionFactory()
-{
-    HostName = hostname,
-    UserName = "***",
-    Password = "****",
-    Port = 5671,
-    VirtualHost = "/",
-    Ssl = new SslOption() { Enabled = true, ServerName = hostname }
-};
+var instance = RabbitMqClientSingleton.Instance;
 
-
-using var connection = factory.CreateConnection();
+using var connection = instance.CreateConnection();
 using var channel = connection.CreateModel();
 var queueName = "jana-first-queue";
 
@@ -26,7 +16,23 @@ channel.QueueDeclare(
     arguments: null
 );
 
-var message = "This is my first message";
+var message = "This is my another message";
 var encodedMessage = Encoding.UTF8.GetBytes(message);
 channel.BasicPublish("", queueName, null, encodedMessage);
 Console.WriteLine($"Message is published and the message is {message}");
+
+public static class RabbitMqClientSingleton
+{
+    private static readonly string hostname = "b-5*****1.mq.ap-south-1.amazonaws.com";
+    private static readonly Lazy<ConnectionFactory> _instance = new(() => new ConnectionFactory()
+    {
+        HostName = hostname,
+        UserName = "****",
+        Password = "***",
+        Port = 5671,
+        VirtualHost = "/",
+        Ssl = new SslOption() { Enabled = true, ServerName = hostname }
+    });
+
+    public static ConnectionFactory Instance => _instance.Value;
+}
