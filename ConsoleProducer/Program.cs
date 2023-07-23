@@ -23,11 +23,11 @@ Console.WriteLine($"Message is published and the message is {message}");
 
 public static class RabbitMqClientSingleton
 {
-    private static readonly string hostname = "b-5*****1.mq.ap-south-1.amazonaws.com";
+    private static readonly string hostname = "b-***.amazonaws.com";
     private static readonly Lazy<ConnectionFactory> _instance = new(() => new ConnectionFactory()
     {
         HostName = hostname,
-        UserName = "****",
+        UserName = "***",
         Password = "***",
         Port = 5671,
         VirtualHost = "/",
